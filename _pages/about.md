@@ -1,14 +1,20 @@
 ---
 permalink: /
-title: "academicpages is a ready-to-fork GitHub Pages template for academic personal websites"
+title: "About me"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
+Welcome to my website! I'm currently a master student at the [Department of International Relations](https://www.dir.tsinghua.edu.cn/) in the [School of Social Sciences](https://www.sss.tsinghua.edu.cn/), [Tsinghua University](https://www.tsinghua.edu.cn/). I am very fortunate to be advised by  [Prof. Chong Chen](https://cc458.github.io/) at Tsinghua. Before graduate school, I received my Bachelor's Degree in International Politics from Tsinghua University with one of the highest honors. 
 
-This is the front page of a website that is powered by the [academicpages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the respository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. You can fork [this repository](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and markdown files, add your own PDFs and other content, and have your own site for free, with no ads! An older version of this template powers my own personal website at [stuartgeiger.com](http://stuartgeiger.com), which uses [this Github repository](https://github.com/staeiou/staeiou.github.io).
+My substantive research interests include armed conflict & political violence, especially focusing on (1) the spatiotemporal dynamics and predictions of civil war; (2) the causes and consequences of armed conflict on major emergencies and social vulnerability.
+
+You can find my CV here: [Jingtian Hu's Curriculum Vitae](../assets/Curriculum_Vitae.pdf).
+
+[Email](mailto:hjt23@mails.tsinghua.edu.cn) / [Github](https://github.com/Jingtian-Hu) / [](../images/wechat.jpg) / [CSDN](https://blog.csdn.net/qd1813100174?spm=1000.2115.3001.5343)
+————————————————
 
 A data-driven personal website
 ======
