@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Jingtian Hu / Tsinghua"
+title                    : "Jingtian Hu | Tsinghua"
 title_separator          : "-"
 name                     : &name "Jingtian Hu"
 description              : &description "Master student at Tsinghua University"
