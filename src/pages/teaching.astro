@@ -11,7 +11,7 @@ import { teaching } from "../data/site";
       {teaching.map((t) => (
         <li>
           <h2>{t.course}</h2>
-          <p><span>{t.role}, {t.place}</span><span class="label">{t.terms}</span></p>
+          <p><span>{t.role}, {t.place}</span><span>{t.terms}</span></p>
         </li>
       ))}
     </ol>

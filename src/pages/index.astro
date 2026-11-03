@@ -12,15 +12,20 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
     <section class="intro">
       <img class="portrait" src={site.photo} width="640" height="800" alt={`Portrait of ${site.name}`} />
       <div class="intro-text">
-        <p class="eyebrow">{site.role}</p>
         <h1>{site.name} <span class="zh" lang="zh-Hans">{site.nameZh}</span></h1>
+        <p class="role">{site.role}</p>
         <div class="bio prose">
           <p>
-            I am a Ph.D. student in Political Science at Columbia University. I study the political economy of
-            critical minerals, global supply chains, and armed conflict, using causal inference, spatial and network
-            methods, and AI.
+            I am a Ph.D. student in Political Science at Columbia University, working in international relations and
+            political methodology. My research examines the political economy of critical minerals: how the
+            structure of global supply chains shapes the ways firms and states secure extraction sites, and what this
+            means for local political order and armed conflict.
           </p>
-          <p class="prev">Previously M.A. and B.A., Tsinghua University.</p>
+          <p>
+            Methodologically, I work on causal inference, spatial and network analysis, and the use of large language
+            models in social science research. I received my M.A. in International Relations and B.A. in International
+            Politics, with highest honors, from Tsinghua University.
+          </p>
         </div>
         <ul class="contact">
           {links.map((l) => (
@@ -36,7 +41,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
         <ol class="news">
           {news.map((n) => (
             <li>
-              <span class="label">{n.date}</span>
+              <span class="date">{n.date}</span>
               <span set:html={n.text} />
             </li>
           ))}
@@ -73,7 +78,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
   }
   h1 {
     font-size: var(--fs-display);
-    margin: 0.5rem 0 1.1rem;
+    margin: 0 0 1rem;
     line-height: 1.05;
   }
   .zh {
@@ -88,9 +93,14 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
   .bio {
     color: var(--ink-soft);
   }
-  .prev {
+  .role {
+    margin: -0.4rem 0 1.25rem;
+    font-size: 1.05rem;
     color: var(--muted);
-    font-size: var(--fs-small);
+  }
+  .date {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
   }
   .contact {
     display: flex;

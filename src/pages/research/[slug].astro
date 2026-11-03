@@ -20,13 +20,13 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
   <article class="wrap narrow">
     <a class="more back" href="/research/">← All research</a>
     <header class="head">
-      <p class="eyebrow">{typeLabel} · {data.year}</p>
+      <p class="kicker">{typeLabel}, {data.year}</p>
       <h1>{data.title}</h1>
       {data.titleZh && <p class="zh" lang="zh-Hans">{data.titleZh}</p>}
       {(data.authorNote || data.coauthors.length > 0) && <p class="line"><Authors data={data} /></p>}
       {data.venue && <p class="line"><i>{data.venue}</i>{data.venueNote && <span>, {data.venueNote}</span>}</p>}
+      {data.status && <p class="line"><i>{data.status}</i></p>}
       <div class="actions">
-        {data.tags.map((t) => <span class="tag">{t}</span>)}
         {data.links.map((l) => (
           <a class="btn" href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noopener" : undefined}>{l.label}</a>
         ))}
@@ -44,7 +44,7 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
         <div class="prose"><Content /></div>
       </section>
     ) : (
-      <p class="pending label">Abstract coming soon</p>
+      <p class="pending">Abstract forthcoming.</p>
     )}
 
     {data.bibtex && (
@@ -54,7 +54,7 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
       </section>
     )}
 
-    <p class="topics label">
+    <p class="topics">
       Topics: {data.topics.map((t, i) => (
         <Fragment><a href={`/research/?topic=${t}`}>{TOPICS[t]}</a>{i < data.topics.length - 1 ? " · " : ""}</Fragment>
       ))}
@@ -119,8 +119,16 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
   }
   .pending {
     margin-top: 2.5rem;
+    color: var(--muted);
+  }
+  .kicker {
+    color: var(--muted);
+    font-size: var(--fs-small);
+    margin: 0;
   }
   .topics {
+    font-size: var(--fs-small);
+    color: var(--muted);
     margin-top: 3rem;
     padding-top: 1.25rem;
     border-top: 1px solid var(--line);

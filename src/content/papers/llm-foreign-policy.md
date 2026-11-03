@@ -9,7 +9,7 @@ type: working
 order: 3
 year: 2025
 topics: [ai]
-tags: ["PolMeth 2025", "NLPCC 2025"]
+status: "Poster presented at PolMeth 2025; talk at the NLPCC 2025 Workshop on LLMs and Social Science"
 summary: "LLM agents reproduce the hawkish biases of human decision-makers, but unstably: persona drift makes them poor stand-ins for human subjects in experiments."
 links:
   - { label: "Poster", href: "/files/PolMeth25_Agent.pdf" }

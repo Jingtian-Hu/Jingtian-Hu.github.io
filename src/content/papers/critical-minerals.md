@@ -4,7 +4,7 @@ type: working
 order: 1
 year: 2026
 topics: [resources, conflict]
-tags: ["ISA 2026"]
+status: "ISA Annual Convention 2026"
 summary: "Mines locked into global value chains make local disruption too costly to tolerate, so firms and governments co-opt local elites instead of coercing them, and armed conflict falls."
 featured: true
 links:

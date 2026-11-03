@@ -13,13 +13,12 @@ const typeZh = { working: "工作论文", published: "期刊论文", book: "著�
 <Base title="中文简介" lang="zh-Hans" description="胡竞天，哥伦比亚大学政治学系博士生，研究关键矿产、全球供应链与武装冲突的政治经济学。">
   <div class="wrap narrow">
     <header class="page-head">
-      <p class="eyebrow">中文简介</p>
       <h1>胡竞天 <span class="en">Jingtian Hu</span></h1>
     </header>
 
     <div class="prose bio">
-      <p>哥伦比亚大学政治学系博士生，研究关键矿产、全球供应链与武装冲突的政治经济学，方法上使用因果推断、空间与网络分析和人工智能。</p>
-      <p>此前就读于清华大学，获国际关系硕士、国际政治学士学位。</p>
+      <p>我是哥伦比亚大学政治学系博士生，研究方向为国际关系与政治学方法论。我的研究关注关键矿产的政治经济学：全球供应链的结构如何影响企业与国家保护矿区的方式，以及这对地方政治秩序和武装冲突意味着什么。</p>
+      <p>方法上，我关注因果推断、空间与网络分析，以及大语言模型在社会科学研究中的应用。此前，我在清华大学获得国际关系硕士和国际政治学士学位（本科以最高荣誉毕业）。</p>
     </div>
 
     <ul class="contact">
@@ -32,7 +31,7 @@ const typeZh = { working: "工作论文", published: "期刊论文", book: "著�
       <ol>
         {papers.map((p) => (
           <li>
-            <span class="label">{typeZh[p.data.type]}</span>
+            <span class="kind">{typeZh[p.data.type]}</span>
             <a class="title" href={`/research/${p.id}/`} lang="en">{p.data.title}</a>
             {p.data.titleZh && <span class="title-zh">{p.data.titleZh}</span>}
           </li>
@@ -105,6 +104,10 @@ const typeZh = { working: "工作论文", published: "期刊论文", book: "著�
     text-decoration: underline;
     text-decoration-color: var(--accent);
     text-underline-offset: 4px;
+  }
+  .kind {
+    font-size: var(--fs-small);
+    color: var(--muted);
   }
   .title-zh {
     font-family: var(--font-zh-serif);

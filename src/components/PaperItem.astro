@@ -19,9 +19,9 @@ const panelId = `abs-${paper.id}`;
   {data.venue && (
     <p class="paper-line"><i>{data.venue}</i>{data.venueNote && <span>, {data.venueNote}</span>}</p>
   )}
+  {data.status && <p class="paper-line paper-status">{data.status}</p>}
   {showSummary && data.summary && <p class="paper-summary">{data.summary}</p>}
   <div class="paper-actions">
-    {data.tags.map((t) => <span class="tag">{t}</span>)}
     {hasAbstract && (
       <button class="btn abstract-btn" type="button" data-abstract-toggle aria-expanded="false" aria-controls={panelId}>
         <Icon name="plus" /><span>Abstract</span>
@@ -95,9 +95,8 @@ const panelId = `abs-${paper.id}`;
     gap: 0.45rem;
     margin-top: 0.85rem;
   }
-  .paper-actions .tag + .btn,
-  .paper-actions .tag + .abstract-btn {
-    margin-left: 0.35rem;
+  .paper-status {
+    font-style: italic;
   }
   .abstract-btn :global(.icon-plus) {
     transition: transform 0.2s ease;

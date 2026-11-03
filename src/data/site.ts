@@ -4,7 +4,7 @@
 export const site = {
   name: "Jingtian Hu",
   nameZh: "胡竞天",
-  role: "Ph.D. Student · Political Science · Columbia University",
+  role: "Ph.D. Student, Department of Political Science, Columbia University",
   description:
     "Jingtian Hu is a Ph.D. student in Political Science at Columbia University, studying the political economy of critical minerals, global supply chains, and armed conflict.",
   email: "jh5296@columbia.edu",
@@ -22,10 +22,10 @@ export const links = [
 
 // Newest first. `date` is shown as written.
 export const news = [
-  { date: "Sep 2026", text: "Started the Ph.D. at Columbia." },
-  { date: "2026", text: '<a href="/research/critical-minerals/">Critical minerals paper</a> at ISA.' },
-  { date: "2025", text: '<a href="/research/llm-foreign-policy/">LLM agents paper</a> at PolMeth and NLPCC.' },
-  { date: "2024", text: '<a href="/research/conflict-diffusion/">Conflict diffusion paper</a> at PolMeth.' },
+  { date: "Sep 2026", text: "Began the Ph.D. program in Political Science at Columbia University." },
+  { date: "2026", text: 'Paper on <a href="/research/critical-minerals/">critical-mineral value chains and local political order</a> accepted for ISA 2026.' },
+  { date: "2025", text: 'Poster on <a href="/research/llm-foreign-policy/">LLM multi-agent experiments in foreign policy</a> at PolMeth 2025; forum talk at NLPCC 2025.' },
+  { date: "2024", text: 'Poster on <a href="/research/conflict-diffusion/">physics-informed models of conflict diffusion</a> at PolMeth 2024.' },
 ];
 
 export const teaching = [

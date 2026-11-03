@@ -22,7 +22,7 @@ const papers = defineCollection({
     topics: z.array(z.enum(Object.keys(TOPICS) as [keyof typeof TOPICS, ...(keyof typeof TOPICS)[]])),
     venue: z.string().optional(), // journal / book (set in italics)
     venueNote: z.string().optional(), // e.g. "No. 2, 2022, pp. 86–123 · In Chinese"
-    tags: z.array(z.string()).default([]), // small status labels
+    status: z.string().optional(), // e.g. "Presented at ISA 2025" (shown in italics)
     summary: z.string().optional(), // one-line plain-language summary
     featured: z.boolean().default(false), // show on homepage
     links: z

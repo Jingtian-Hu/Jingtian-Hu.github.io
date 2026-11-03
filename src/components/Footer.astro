@@ -9,7 +9,7 @@ import { site, links } from "../data/site";
         <li><a href={l.href}><Icon name={l.icon} /><span>{l.label}</span></a></li>
       ))}
     </ul>
-    <p class="label">© {new Date().getFullYear()} {site.name} · Last updated {site.lastUpdated}</p>
+    <p class="copy">© {new Date().getFullYear()} {site.name} · Last updated {site.lastUpdated}</p>
   </div>
 </footer>
 
@@ -49,5 +49,9 @@ import { site, links } from "../data/site";
   }
   p {
     margin: 0;
+  }
+  .copy {
+    font-size: 0.85rem;
+    color: var(--muted);
   }
 </style>
