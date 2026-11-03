@@ -22,17 +22,11 @@ export const links = [
 
 // Newest first. `date` is shown as written.
 export const news = [
-  { date: "Sep 2026", text: "Started the Ph.D. in Political Science at Columbia University." },
-  { date: "Jun 2026", text: "Graduated with an M.A. in International Relations from Tsinghua University." },
-  {
-    date: "2026",
-    text: 'My critical-minerals paper was accepted for the <a href="/research/critical-minerals/">ISA 2026 Annual Convention</a>.',
-  },
-  { date: "Summer 2025", text: "Visiting student at the University of Hong Kong." },
-  {
-    date: "2025",
-    text: 'Presented a poster on <a href="/research/llm-foreign-policy/">LLM agents and foreign-policy bias</a> at PolMeth 2025, and spoke at the NLPCC 2025 workshop "When Large Language Models Meet Social Science."',
-  },
+  { date: "Sep 2026", text: "Joined the Ph.D. program in Political Science at Columbia University." },
+  { date: "2026", text: 'Paper on <a href="/research/critical-minerals/">critical-mineral value chains and local order</a> accepted at ISA 2026.' },
+  { date: "2025", text: 'Poster on <a href="/research/llm-foreign-policy/">LLM agents and foreign-policy bias</a> at PolMeth 2025.' },
+  { date: "2025", text: 'Speaker at the NLPCC 2025 workshop "When Large Language Models Meet Social Science."' },
+  { date: "2024", text: 'Poster on <a href="/research/conflict-diffusion/">physics-informed conflict forecasting</a> at PolMeth 2024.' },
 ];
 
 export const teaching = [

@@ -10,7 +10,7 @@ order: 3
 year: 2025
 topics: [ai]
 tags: ["Poster · PolMeth 2025", "Talk · NLPCC 2025"]
-summary: "LLM agents show the same hawkish biases as human decision-makers, but their biases drift unpredictably, which makes them unreliable stand-ins for human subjects."
+summary: "LLM agents reproduce the hawkish biases of human decision-makers, but unstably: persona drift makes them poor stand-ins for human subjects in experiments."
 links:
   - { label: "Poster", href: "/files/PolMeth25_Agent.pdf" }
   - { label: "Slides", href: "/files/Slides_Agent.pdf" }

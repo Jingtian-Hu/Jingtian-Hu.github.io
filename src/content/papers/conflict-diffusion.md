@@ -4,7 +4,7 @@ coauthors:
   - { name: "Hao Sha" }
   - { name: "Pengfei Tian" }
   - { name: "Yue He" }
-  - { name: "Chong Chen", url: "https://cc458.github.io/" }
+  - { name: "Chong Chen" }
   - { name: "Fan Yang" }
   - { name: "Peng Cui" }
 type: working
@@ -12,7 +12,7 @@ order: 2
 year: 2025
 topics: [conflict, methods, ai]
 tags: ["Poster · PolMeth 2024"]
-summary: "A physics-informed deep-learning model of how violence spreads across space, with a 56% accuracy gain on the ViEWS forecasting benchmark."
+summary: "A physics-informed diffusion model that forecasts where violence spreads next, improving accuracy on the ViEWS benchmark by 56% over strong baselines."
 featured: true
 links:
   - { label: "PDF", href: "/files/Paper_PhysicsInformed.pdf" }

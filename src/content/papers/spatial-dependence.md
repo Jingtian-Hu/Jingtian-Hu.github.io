@@ -2,7 +2,7 @@
 title: "Spatial Dependence and Armed Conflict Prediction"
 titleZh: "空间依赖与武装冲突预测"
 coauthors:
-  - { name: "Chong Chen", url: "https://cc458.github.io/" }
+  - { name: "Chong Chen" }
 type: published
 order: 1
 year: 2022
@@ -10,7 +10,7 @@ topics: [conflict, methods]
 venue: "Quarterly Journal of International Politics"
 venueNote: "No. 2, 2022, pp. 86–123 · In Chinese"
 tags: []
-summary: "Taking spatial dependence seriously, at fine-grained units, sharply improves conflict forecasts, shown with Myanmar's civil conflict, 2010–2020."
+summary: "Modeling spatial dependence at fine-grained units sharply improves conflict forecasts: evidence from Myanmar, 2010–2020."
 links:
   - { label: "PDF", href: "/files/Paper_SpatialDependence.pdf" }
   - { label: "DOI", href: "https://doi.org/10.16513/j.cnki.qjip.2022.0010" }

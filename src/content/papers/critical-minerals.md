@@ -4,8 +4,8 @@ type: working
 order: 1
 year: 2026
 topics: [resources, conflict]
-tags: ["Writing sample", "ISA 2026"]
-summary: "Why the critical-mineral boom has produced pockets of local peace: when a mine is locked into a global value chain, firms and governments buy off potential spoilers instead of coercing them."
+tags: ["ISA 2026"]
+summary: "Mines locked into global value chains make local disruption too costly to tolerate, so firms and governments co-opt local elites instead of coercing them, and armed conflict falls."
 featured: true
 links:
   - { label: "PDF", href: "/files/Paper_CriticalMineral.pdf" }
