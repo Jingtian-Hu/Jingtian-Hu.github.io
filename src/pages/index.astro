@@ -16,23 +16,11 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
         <h1>{site.name} <span class="zh" lang="zh-Hans">{site.nameZh}</span></h1>
         <div class="bio prose">
           <p>
-            I am a Ph.D. student in Political Science at Columbia University, working in international relations and
-            political methodology.
+            I am a Ph.D. student in Political Science at Columbia University. I study the political economy of
+            critical minerals, global supply chains, and armed conflict, using causal inference, spatial and network
+            methods, and AI.
           </p>
-          <p>
-            My research studies the political economy of critical minerals. As the energy transition pulls industrial
-            mining into fragile states, I ask how a mine's place in global supply chains shapes the way firms and
-            governments secure it, through coercion or through co-opting local elites, and what that means for armed
-            conflict. My current paper builds an original panel of 529 industrial mines across Africa.
-          </p>
-          <p>
-            I also build methods for this agenda: spatial and network models of how violence spreads, and experiments
-            that test when large language models can, and cannot, stand in for human subjects.
-          </p>
-          <p>
-            I hold an M.A. in International Relations and a B.A. in International Politics (Highest Honors) from
-            Tsinghua University.
-          </p>
+          <p class="prev">Previously M.A. and B.A., Tsinghua University.</p>
         </div>
         <ul class="contact">
           {links.map((l) => (
@@ -58,7 +46,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
       <section aria-labelledby="sel-h">
         <h2 class="section-title" id="sel-h">Selected research</h2>
         <div class="papers">
-          {featured.map((p) => <PaperItem paper={p} />)}
+          {featured.map((p) => <PaperItem paper={p} showSummary={false} />)}
         </div>
         <a class="more" href="/research/">All research <Icon name="arrow" /></a>
       </section>
@@ -99,6 +87,10 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
   }
   .bio {
     color: var(--ink-soft);
+  }
+  .prev {
+    color: var(--muted);
+    font-size: var(--fs-small);
   }
   .contact {
     display: flex;

@@ -11,7 +11,7 @@ type: working
 order: 2
 year: 2025
 topics: [conflict, methods, ai]
-tags: ["Poster · PolMeth 2024"]
+tags: ["PolMeth 2024"]
 summary: "A physics-informed diffusion model that forecasts where violence spreads next, improving accuracy on the ViEWS benchmark by 56% over strong baselines."
 featured: true
 links:

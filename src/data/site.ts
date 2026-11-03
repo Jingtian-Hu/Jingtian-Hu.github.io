@@ -22,11 +22,10 @@ export const links = [
 
 // Newest first. `date` is shown as written.
 export const news = [
-  { date: "Sep 2026", text: "Joined the Ph.D. program in Political Science at Columbia University." },
-  { date: "2026", text: 'Paper on <a href="/research/critical-minerals/">critical-mineral value chains and local order</a> accepted at ISA 2026.' },
-  { date: "2025", text: 'Poster on <a href="/research/llm-foreign-policy/">LLM agents and foreign-policy bias</a> at PolMeth 2025.' },
-  { date: "2025", text: 'Speaker at the NLPCC 2025 workshop "When Large Language Models Meet Social Science."' },
-  { date: "2024", text: 'Poster on <a href="/research/conflict-diffusion/">physics-informed conflict forecasting</a> at PolMeth 2024.' },
+  { date: "Sep 2026", text: "Started the Ph.D. at Columbia." },
+  { date: "2026", text: '<a href="/research/critical-minerals/">Critical minerals paper</a> at ISA.' },
+  { date: "2025", text: '<a href="/research/llm-foreign-policy/">LLM agents paper</a> at PolMeth and NLPCC.' },
+  { date: "2024", text: '<a href="/research/conflict-diffusion/">Conflict diffusion paper</a> at PolMeth.' },
 ];
 
 export const teaching = [
