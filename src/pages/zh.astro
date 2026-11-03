@@ -27,7 +27,7 @@ const typeZh = { working: "工作论文", published: "期刊论文", book: "著�
     </ul>
 
     <section class="list" aria-labelledby="zh-research">
-      <h2 class="section-title" id="zh-research">研究</h2>
+      <h2 class="section-title" id="zh-research">研究 <span class="en-sub">Research</span></h2>
       <ol>
         {papers.map((p) => (
           <li>
@@ -76,7 +76,14 @@ const typeZh = { working: "工作论文", published: "期刊论文", book: "著�
     letter-spacing: 0.02em;
   }
   .list {
-    margin-top: 3.25rem;
+    margin-top: 2.75rem;
+  }
+  .en-sub {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 0.7em;
+    color: var(--muted);
+    letter-spacing: 0;
   }
   .list ol {
     list-style: none;

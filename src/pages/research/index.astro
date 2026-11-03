@@ -27,7 +27,7 @@ const sections = [
     {sections.map((s) => {
       const items = all.filter((p) => p.data.type === s.type);
       return items.length > 0 && (
-        <section class="block" id={s.id} aria-labelledby={`${s.id}-h`}>
+        <section class="block" id={s.id} aria-labelledby={`${s.id}-h`} data-reveal>
           <h2 class="section-title" id={`${s.id}-h`}>{s.title}</h2>
           <div class="papers">
             {items.map((p) => <PaperItem paper={p} showSummary={false} />)}
@@ -67,6 +67,6 @@ const sections = [
     margin-bottom: 2.75rem;
   }
   .block + .block {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 </style>

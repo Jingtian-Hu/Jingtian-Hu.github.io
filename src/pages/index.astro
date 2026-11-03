@@ -9,7 +9,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
 ---
 <Base>
   <div class="wrap">
-    <section class="intro">
+    <section class="intro paper-grid">
       <img class="portrait" src={site.photo} width="640" height="800" alt={`Portrait of ${site.name}`} />
       <div class="intro-text">
         <h1>{site.name} <span class="zh" lang="zh-Hans">{site.nameZh}</span></h1>
@@ -36,7 +36,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
     </section>
 
     <div class="columns">
-      <section aria-labelledby="news-h">
+      <section aria-labelledby="news-h" data-reveal>
         <h2 class="section-title" id="news-h">News</h2>
         <ol class="news">
           {news.map((n) => (
@@ -48,7 +48,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
         </ol>
       </section>
 
-      <section aria-labelledby="sel-h">
+      <section aria-labelledby="sel-h" data-reveal>
         <h2 class="section-title" id="sel-h">Selected research</h2>
         <div class="papers">
           {featured.map((p) => <PaperItem paper={p} showSummary={false} />)}
@@ -65,7 +65,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
     grid-template-columns: 13rem minmax(0, 1fr);
     gap: clamp(1.5rem, 1rem + 2.5vw, 3rem);
     align-items: start;
-    padding-bottom: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
     border-bottom: 1px solid var(--line);
   }
   .portrait {
@@ -94,8 +94,8 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
     color: var(--ink-soft);
   }
   .role {
-    margin: -0.4rem 0 1.25rem;
-    font-size: 1.05rem;
+    margin: -0.5rem 0 1.1rem;
+    font-size: 1rem;
     color: var(--muted);
   }
   .date {
@@ -114,7 +114,7 @@ const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
     gap: clamp(2rem, 1rem + 4vw, 4.5rem);
-    padding-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding-top: clamp(2rem, 1.5rem + 2vw, 3rem);
   }
   .news {
     list-style: none;

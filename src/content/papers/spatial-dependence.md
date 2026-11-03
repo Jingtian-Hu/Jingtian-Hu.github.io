@@ -8,7 +8,8 @@ order: 1
 year: 2022
 topics: [conflict, methods]
 venue: "Quarterly Journal of International Politics"
-venueNote: "No. 2, 2022, pp. 86–123 · In Chinese"
+venueNote: "no. 2 (2022): 86–123. In Chinese"
+thumbnail: "/images/papers/spatial-dependence.jpg"
 summary: "Modeling spatial dependence at fine-grained units sharply improves conflict forecasts: evidence from Myanmar, 2010–2020."
 links:
   - { label: "PDF", href: "/files/Paper_SpatialDependence.pdf" }

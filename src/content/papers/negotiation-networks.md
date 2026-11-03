@@ -7,6 +7,6 @@ type: working
 order: 4
 year: 2025
 topics: [methods]
-status: "Presented at ISA 2025"
+status: "Presented at the ISA Annual Convention, 2025"
 links: []
 ---

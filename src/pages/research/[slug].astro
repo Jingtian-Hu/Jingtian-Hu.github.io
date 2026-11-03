@@ -19,7 +19,8 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
 <Base title={data.title} description={data.summary ?? data.title}>
   <article class="wrap narrow">
     <a class="more back" href="/research/">← All research</a>
-    <header class="head">
+    <header class:list={["head", { "has-thumb": data.thumbnail }]}>
+      <div class="head-text">
       <p class="kicker">{typeLabel}, {data.year}</p>
       <h1>{data.title}</h1>
       {data.titleZh && <p class="zh" lang="zh-Hans">{data.titleZh}</p>}
@@ -34,6 +35,12 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
           <button class="btn" type="button" data-copy={data.bibtex.trim()}><Icon name="copy" /><span>BibTeX</span></button>
         )}
       </div>
+      </div>
+      {data.thumbnail && (
+        <a class="thumb" href={data.links.find((l) => l.label === "PDF")?.href ?? "#"} aria-label="Open the PDF">
+          <img src={data.thumbnail} width="360" height="465" alt={`First page of “${data.title}”`} />
+        </a>
+      )}
     </header>
 
     {data.summary && <p class="summary">{data.summary}</p>}
@@ -43,9 +50,7 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
         <h2 class="section-title">Abstract</h2>
         <div class="prose"><Content /></div>
       </section>
-    ) : (
-      <p class="pending">Abstract forthcoming.</p>
-    )}
+    ) : null}
 
     {data.bibtex && (
       <section class="cite">
@@ -66,6 +71,40 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
   .back {
     display: inline-block;
     margin-bottom: 2rem;
+  }
+  .head.has-thumb {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 11rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .thumb {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 16px 32px -14px rgb(60 40 20 / 0.35);
+    transition: transform var(--ease), box-shadow var(--ease);
+  }
+  .thumb:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 22px 40px -14px rgb(60 40 20 / 0.45);
+  }
+  .thumb img {
+    width: 100%;
+    height: auto;
+  }
+  :global([data-theme="dark"]) .thumb {
+    opacity: 0.88;
+  }
+  @media (max-width: 640px) {
+    .head.has-thumb {
+      grid-template-columns: 1fr;
+    }
+    .thumb {
+      width: 8rem;
+    }
   }
   .head h1 {
     font-size: clamp(1.9rem, 1.4rem + 2vw, 2.7rem);
@@ -116,10 +155,6 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
     font-family: var(--font-mono);
     font-size: 0.8rem;
     line-height: 1.6;
-  }
-  .pending {
-    margin-top: 2.5rem;
-    color: var(--muted);
   }
   .kicker {
     color: var(--muted);

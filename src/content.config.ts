@@ -29,6 +29,7 @@ const papers = defineCollection({
       .array(z.object({ label: z.string(), href: z.string() }))
       .default([]),
     titleZh: z.string().optional(),
+    thumbnail: z.string().optional(), // first-page preview, /images/papers/<id>.jpg
     bibtex: z.string().optional(),
   }),
 });
