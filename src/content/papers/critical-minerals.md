@@ -1,5 +1,7 @@
 ---
 title: "Critical Mineral Value-Chain Integration and Local Political Order"
+authors:
+  - { name: "Jingtian Hu" }
 type: working
 order: 1
 year: 2026

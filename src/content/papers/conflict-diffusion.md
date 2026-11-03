@@ -1,6 +1,7 @@
 ---
 title: "Modeling Spatiotemporal Armed Conflict Dynamics via Physics-Informed Diffusion"
-coauthors:
+authors:
+  - { name: "Jingtian Hu" }
   - { name: "Hao Sha" }
   - { name: "Pengfei Tian" }
   - { name: "Yue He" }

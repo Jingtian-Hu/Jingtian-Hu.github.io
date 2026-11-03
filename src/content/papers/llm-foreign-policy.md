@@ -1,6 +1,7 @@
 ---
 title: "Modeling Collective Foreign Policy Decisions: Randomized Controlled Experiments with AI Multi-Agent Architectures"
-coauthors:
+authors:
+  - { name: "Jingtian Hu" }
   - { name: "Yifei Zhu" }
   - { name: "Zhenhua Tu" }
   - { name: "Yinzhi Lin" }

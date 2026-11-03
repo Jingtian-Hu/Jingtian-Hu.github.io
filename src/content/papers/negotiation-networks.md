@@ -1,6 +1,7 @@
 ---
 title: "Structural Balance and Issue Salience in Global Negotiation Networks"
-coauthors:
+authors:
+  - { name: "Jingtian Hu" }
   - { name: "Xinyang Gao" }
   - { name: "Xun Pang" }
 type: working

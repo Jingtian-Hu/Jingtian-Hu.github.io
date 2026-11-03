@@ -1,8 +1,9 @@
 ---
 title: "Spatial Dependence and Armed Conflict Prediction"
 titleZh: "空间依赖与武装冲突预测"
-coauthors:
+authors:
   - { name: "Chong Chen" }
+  - { name: "Jingtian Hu" }
 type: published
 order: 1
 year: 2022

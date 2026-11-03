@@ -13,9 +13,9 @@ const papers = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/papers" }),
   schema: z.object({
     title: z.string(),
-    // Co-authors only (shown as "with A, B and C"). Leave empty for solo work.
-    coauthors: z.array(z.object({ name: z.string(), url: z.string().url().optional() })).default([]),
-    authorNote: z.string().optional(), // overrides the "with ..." line, e.g. for book chapters
+    // Full author list in order, including yourself; your own name is set in bold.
+    authors: z.array(z.object({ name: z.string(), url: z.string().url().optional() })).default([]),
+    authorNote: z.string().optional(), // replaces the author line, e.g. for book chapters
     type: z.enum(["working", "published", "book"]),
     order: z.number(), // smaller = higher within its section
     year: z.number(),
