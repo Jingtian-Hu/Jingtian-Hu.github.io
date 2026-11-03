@@ -1,0 +1,138 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import Icon from "./Icon.astro";
+import Authors from "./Authors.astro";
+
+interface Props {
+  paper: CollectionEntry<"papers">;
+  showSummary?: boolean;
+}
+const { paper, showSummary = true } = Astro.props;
+const { data } = paper;
+const hasAbstract = Boolean(paper.body?.trim());
+const { Content } = await render(paper);
+const panelId = `abs-${paper.id}`;
+---
+<article class="paper" data-topics={data.topics.join(" ")}>
+  <h3 class="paper-title"><a href={`/research/${paper.id}/`}>{data.title}</a></h3>
+  {(data.authorNote || data.coauthors.length > 0) && <p class="paper-line"><Authors data={data} /></p>}
+  {data.venue && (
+    <p class="paper-line"><i>{data.venue}</i>{data.venueNote && <span>, {data.venueNote}</span>}</p>
+  )}
+  {showSummary && data.summary && <p class="paper-summary">{data.summary}</p>}
+  <div class="paper-actions">
+    {data.tags.map((t) => <span class="tag">{t}</span>)}
+    {hasAbstract && (
+      <button class="btn abstract-btn" type="button" data-abstract-toggle aria-expanded="false" aria-controls={panelId}>
+        <Icon name="plus" /><span>Abstract</span>
+      </button>
+    )}
+    {data.links.map((l) => (
+      <a class="btn" href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noopener" : undefined}>{l.label}</a>
+    ))}
+    {data.bibtex && (
+      <button class="btn" type="button" data-copy={data.bibtex.trim()} title="Copy BibTeX to clipboard">
+        <Icon name="copy" /><span>BibTeX</span>
+      </button>
+    )}
+  </div>
+  {hasAbstract && (
+    <div class="abstract" id={panelId} inert>
+      <div class="abstract-inner"><div class="abstract-body"><Content /></div></div>
+    </div>
+  )}
+</article>
+
+<style>
+  .paper {
+    padding-block: 1.35rem;
+    border-top: 1px solid var(--line);
+    transition: opacity 0.25s ease;
+  }
+  .paper:first-child {
+    border-top: 0;
+    padding-top: 0.25rem;
+  }
+  .paper.is-dim {
+    opacity: 0.28;
+  }
+  .paper-title {
+    font-family: var(--font-serif);
+    font-size: var(--fs-paper);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .paper-title a {
+    text-decoration: none;
+  }
+  .paper-title a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 4px;
+  }
+  .paper-line {
+    margin: 0.35rem 0 0;
+    font-size: var(--fs-small);
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .paper-line a {
+    color: inherit;
+  }
+  .paper-summary {
+    margin: 0.55rem 0 0;
+    font-size: var(--fs-small);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+  .paper-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+  }
+  .paper-actions .tag + .btn,
+  .paper-actions .tag + .abstract-btn {
+    margin-left: 0.35rem;
+  }
+  .abstract-btn :global(.icon-plus) {
+    transition: transform 0.2s ease;
+  }
+  .abstract-btn[aria-expanded="true"] {
+    background: var(--accent-tint);
+    border-color: var(--accent);
+    color: var(--accent-deep);
+  }
+  .abstract-btn[aria-expanded="true"] :global(.icon-plus) {
+    transform: rotate(45deg);
+  }
+  .abstract {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s ease;
+  }
+  .abstract.is-open {
+    grid-template-rows: 1fr;
+  }
+  .abstract-inner {
+    overflow: hidden;
+  }
+  .abstract-body {
+    margin-top: 1rem;
+    padding: 1rem 1.15rem;
+    border-left: 2px solid var(--accent);
+    background: var(--card);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: var(--fs-small);
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+  .abstract-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

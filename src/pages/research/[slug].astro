@@ -1,0 +1,132 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Authors from "../../components/Authors.astro";
+import Icon from "../../components/Icon.astro";
+import { TOPICS } from "../../content.config";
+
+export async function getStaticPaths() {
+  const papers = await getCollection("papers");
+  return papers.map((paper) => ({ params: { slug: paper.id }, props: { paper } }));
+}
+interface Props { paper: CollectionEntry<"papers">; }
+const { paper } = Astro.props;
+const { data } = paper;
+const { Content } = await render(paper);
+const hasAbstract = Boolean(paper.body?.trim());
+const typeLabel = { working: "Working paper", published: "Publication", book: "Book chapter" }[data.type];
+---
+<Base title={data.title} description={data.summary ?? data.title}>
+  <article class="wrap narrow">
+    <a class="more back" href="/research/">← All research</a>
+    <header class="head">
+      <p class="eyebrow">{typeLabel} · {data.year}</p>
+      <h1>{data.title}</h1>
+      {data.titleZh && <p class="zh" lang="zh-Hans">{data.titleZh}</p>}
+      {(data.authorNote || data.coauthors.length > 0) && <p class="line"><Authors data={data} /></p>}
+      {data.venue && <p class="line"><i>{data.venue}</i>{data.venueNote && <span>, {data.venueNote}</span>}</p>}
+      <div class="actions">
+        {data.tags.map((t) => <span class="tag">{t}</span>)}
+        {data.links.map((l) => (
+          <a class="btn" href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noopener" : undefined}>{l.label}</a>
+        ))}
+        {data.bibtex && (
+          <button class="btn" type="button" data-copy={data.bibtex.trim()}><Icon name="copy" /><span>BibTeX</span></button>
+        )}
+      </div>
+    </header>
+
+    {data.summary && <p class="summary">{data.summary}</p>}
+
+    {hasAbstract ? (
+      <section class="abstract">
+        <h2 class="section-title">Abstract</h2>
+        <div class="prose"><Content /></div>
+      </section>
+    ) : (
+      <p class="pending label">Abstract coming soon</p>
+    )}
+
+    {data.bibtex && (
+      <section class="cite">
+        <h2 class="section-title">Cite</h2>
+        <pre><code>{data.bibtex.trim()}</code></pre>
+      </section>
+    )}
+
+    <p class="topics label">
+      Topics: {data.topics.map((t, i) => (
+        <Fragment><a href={`/research/?topic=${t}`}>{TOPICS[t]}</a>{i < data.topics.length - 1 ? " · " : ""}</Fragment>
+      ))}
+    </p>
+  </article>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+  .head h1 {
+    font-size: clamp(1.9rem, 1.4rem + 2vw, 2.7rem);
+    line-height: 1.2;
+    margin: 0.6rem 0 0.75rem;
+  }
+  .zh {
+    font-family: var(--font-zh-serif);
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: -0.25rem 0 0.75rem;
+  }
+  .line {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.25rem;
+  }
+  .summary {
+    margin: 2.25rem 0 0;
+    padding: 1.1rem 1.25rem;
+    background: var(--card);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .abstract,
+  .cite {
+    margin-top: 2.75rem;
+  }
+  .abstract .prose {
+    color: var(--ink-soft);
+  }
+  pre {
+    margin: 0;
+    padding: 1rem 1.15rem;
+    overflow-x: auto;
+    background: var(--paper-sunk);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .pending {
+    margin-top: 2.5rem;
+  }
+  .topics {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .topics a {
+    color: var(--accent-deep);
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../data/site";
+---
+<Base title="CV" description="Curriculum vitae of Jingtian Hu.">
+  <div class="wrap">
+    <header class="page-head head">
+      <div>
+        <p class="eyebrow">Curriculum vitae</p>
+        <h1>CV</h1>
+        <p class="lede">Last updated {site.cvUpdated}.</p>
+      </div>
+      <a class="btn is-solid big" href={site.cv} download><Icon name="file" /><span>Download PDF</span></a>
+    </header>
+    <object class="pdf" data={site.cv} type="application/pdf" aria-label="CV (PDF)">
+      <p>Your browser can't show the PDF here. <a href={site.cv}>Open the CV</a>.</p>
+    </object>
+  </div>
+</Base>
+
+<style>
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .big {
+    font-size: 0.8rem;
+    padding: 0.8em 1.1em;
+  }
+  .big:hover {
+    background: var(--accent-deep);
+    border-color: var(--accent-deep);
+  }
+  .pdf {
+    display: block;
+    width: 100%;
+    height: min(85vh, 1100px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+  }
+  .pdf p {
+    padding: 1.25rem;
+    color: var(--muted);
+  }
+  @media (max-width: 640px) {
+    .pdf {
+      height: 70vh;
+    }
+  }
+</style>

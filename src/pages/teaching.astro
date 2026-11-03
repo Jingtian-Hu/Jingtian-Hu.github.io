@@ -1,0 +1,49 @@
+---
+import Base from "../layouts/Base.astro";
+import { teaching } from "../data/site";
+---
+<Base title="Teaching" description="Teaching by Jingtian Hu: quantitative methods, spatial analysis with R, and large language models for social science.">
+  <div class="wrap narrow">
+    <header class="page-head">
+      <h1>Teaching</h1>
+      <p class="lede">Quantitative methods, spatial analysis, and large language models for social scientists.</p>
+    </header>
+    <ol class="courses">
+      {teaching.map((t) => (
+        <li>
+          <h2>{t.course}</h2>
+          <p><span>{t.role}, {t.place}</span><span class="label">{t.terms}</span></p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Base>
+
+<style>
+  .courses {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .courses li {
+    padding-block: 1.35rem;
+    border-top: 1px solid var(--line);
+  }
+  .courses li:first-child {
+    border-top: 0;
+    padding-top: 0.25rem;
+  }
+  .courses h2 {
+    font-size: var(--fs-paper);
+    line-height: 1.35;
+  }
+  .courses p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    margin: 0.4rem 0 0;
+    font-size: var(--fs-small);
+    color: var(--muted);
+  }
+</style>

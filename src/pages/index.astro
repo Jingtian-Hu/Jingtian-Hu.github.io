@@ -1,0 +1,160 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PaperItem from "../components/PaperItem.astro";
+import Icon from "../components/Icon.astro";
+import { site, links, news } from "../data/site";
+
+const featured = (await getCollection("papers", (p) => p.data.featured)).sort((a, b) => a.data.order - b.data.order);
+---
+<Base>
+  <div class="wrap">
+    <section class="intro">
+      <img class="portrait" src={site.photo} width="640" height="800" alt={`Portrait of ${site.name}`} />
+      <div class="intro-text">
+        <p class="eyebrow">{site.role}</p>
+        <h1>{site.name} <span class="zh" lang="zh-Hans">{site.nameZh}</span></h1>
+        <div class="bio prose">
+          <p>
+            I am a first-year Ph.D. student in Political Science at Columbia University, working in international
+            relations and political methodology. My research asks how global supply chains for natural resources,
+            especially critical minerals, shape state protection, local bargaining, and armed conflict.
+          </p>
+          <p>
+            Methodologically, I work on causal inference, spatial and network analysis, and the use of AI and large
+            language models in social science.
+          </p>
+          <p>
+            Before Columbia, I received an M.A. in International Relations and a B.A. in International Politics (with
+            Highest Honors) from Tsinghua University, where I worked with <a href="https://cc458.github.io/">Chong Chen</a>.
+            I was also a research assistant to Xun Pang at Peking
+            University.
+          </p>
+        </div>
+        <ul class="contact">
+          {links.map((l) => (
+            <li><a class="btn" href={l.href}><Icon name={l.icon} /><span>{l.label}</span></a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <div class="columns">
+      <section aria-labelledby="news-h">
+        <h2 class="section-title" id="news-h">News</h2>
+        <ol class="news">
+          {news.map((n) => (
+            <li>
+              <span class="label">{n.date}</span>
+              <span set:html={n.text} />
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section aria-labelledby="sel-h">
+        <h2 class="section-title" id="sel-h">Selected research</h2>
+        <div class="papers">
+          {featured.map((p) => <PaperItem paper={p} />)}
+        </div>
+        <a class="more" href="/research/">All research <Icon name="arrow" /></a>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .intro {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    align-items: start;
+    padding-bottom: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    border-bottom: 1px solid var(--line);
+  }
+  .portrait {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 14px 32px -12px rgb(60 40 20 / 0.28);
+  }
+  h1 {
+    font-size: var(--fs-display);
+    margin: 0.5rem 0 1.1rem;
+    line-height: 1.05;
+  }
+  .zh {
+    font-family: var(--font-zh-serif);
+    font-weight: 400;
+    font-size: 0.42em;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-left: 0.25em;
+    vertical-align: 0.35em;
+  }
+  .bio {
+    color: var(--ink-soft);
+  }
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1.4rem 0 0;
+    padding: 0;
+  }
+  .columns {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+    padding-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  }
+  .news {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .news li {
+    display: grid;
+    gap: 0.2rem;
+    padding-block: 0.8rem;
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-small);
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .news li:first-child {
+    border-top: 0;
+    padding-top: 0.25rem;
+  }
+  .papers {
+    margin-bottom: 1.25rem;
+  }
+  .more :global(svg) {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    transition: transform var(--ease);
+  }
+  .more:hover :global(svg) {
+    transform: translateX(3px);
+  }
+  @media (max-width: 860px) {
+    .columns {
+      grid-template-columns: 1fr;
+    }
+    .columns > section:first-child {
+      order: 2;
+    }
+  }
+  @media (max-width: 640px) {
+    .intro {
+      grid-template-columns: 1fr;
+    }
+    .portrait {
+      width: 9.5rem;
+    }
+  }
+</style>

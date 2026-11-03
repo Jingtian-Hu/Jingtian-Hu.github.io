@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from "astro:content";
+interface Props { data: CollectionEntry<"papers">["data"]; }
+const { data } = Astro.props;
+const people = data.coauthors;
+---
+{data.authorNote ? (
+  <Fragment>{data.authorNote}</Fragment>
+) : people.length > 0 ? (
+  <Fragment>
+    with{" "}
+    {people.map((p, i) => (
+      <Fragment>
+        {p.url ? <a href={p.url}>{p.name}</a> : p.name}
+        {i < people.length - 2 ? ", " : i === people.length - 2 ? (people.length > 2 ? ", and " : " and ") : ""}
+      </Fragment>
+    ))}
+  </Fragment>
+) : null}

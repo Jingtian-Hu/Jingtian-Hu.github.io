@@ -1,0 +1,76 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PaperItem from "../../components/PaperItem.astro";
+import { TOPICS } from "../../content.config";
+
+const all = (await getCollection("papers")).sort((a, b) => a.data.order - b.data.order);
+const sections = [
+  { id: "working-papers", title: "Working papers", type: "working" },
+  { id: "publications", title: "Publications", type: "published" },
+  { id: "book", title: "Book chapter", type: "book" },
+] as const;
+---
+<Base title="Research" description="Working papers and publications by Jingtian Hu on critical minerals, supply chains, armed conflict, and AI for social science.">
+  <div class="wrap narrow">
+    <header class="page-head">
+      <h1>Research</h1>
+      <p class="lede">
+        I study the political economy of natural resources, global supply chains, and armed conflict, and develop
+        spatial, network, and AI-based methods for social science.
+      </p>
+    </header>
+
+    <div class="filters" role="group" aria-label="Filter by topic">
+      <button class="btn" type="button" data-topic="all" aria-pressed="true">All</button>
+      {Object.entries(TOPICS).map(([key, label]) => (
+        <button class="btn" type="button" data-topic={key} aria-pressed="false">{label}</button>
+      ))}
+    </div>
+
+    {sections.map((s) => {
+      const items = all.filter((p) => p.data.type === s.type);
+      return items.length > 0 && (
+        <section class="block" id={s.id} aria-labelledby={`${s.id}-h`}>
+          <h2 class="section-title" id={`${s.id}-h`}>{s.title}</h2>
+          <div class="papers">
+            {items.map((p) => <PaperItem paper={p} />)}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>("[data-topic]");
+  const papers = document.querySelectorAll<HTMLElement>(".paper");
+
+  function apply(topic: string) {
+    buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.topic === topic)));
+    papers.forEach((p) => {
+      const match = topic === "all" || (p.dataset.topics ?? "").split(" ").includes(topic);
+      p.classList.toggle("is-dim", !match);
+    });
+    const url = new URL(window.location.href);
+    if (topic === "all") url.searchParams.delete("topic");
+    else url.searchParams.set("topic", topic);
+    history.replaceState(null, "", url);
+  }
+
+  buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.topic ?? "all")));
+  const initial = new URLSearchParams(window.location.search).get("topic");
+  if (initial && [...buttons].some((b) => b.dataset.topic === initial)) apply(initial);
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 2.75rem;
+  }
+  .block + .block {
+    margin-top: 3rem;
+  }
+</style>

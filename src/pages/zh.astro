@@ -1,0 +1,123 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../data/site";
+
+const papers = (await getCollection("papers")).sort((a, b) => {
+  const rank = { working: 0, published: 1, book: 2 } as const;
+  return rank[a.data.type] - rank[b.data.type] || a.data.order - b.data.order;
+});
+const typeZh = { working: "工作论文", published: "期刊论文", book: "著作章节" } as const;
+---
+<Base title="中文简介" lang="zh-Hans" description="胡竞天，哥伦比亚大学政治学系博士生，研究关键矿产、全球供应链与武装冲突的政治经济学。">
+  <div class="wrap narrow">
+    <header class="page-head">
+      <p class="eyebrow">中文简介</p>
+      <h1>胡竞天 <span class="en">Jingtian Hu</span></h1>
+    </header>
+
+    <div class="prose bio">
+      <p>
+        我是哥伦比亚大学政治学系博士一年级学生，研究方向为国际关系与政治学方法论。我关注自然资源，尤其是关键矿产的全球供应链，如何影响国家保护、地方议价与武装冲突。方法上，我使用因果推断、空间与网络分析，并探索人工智能与大语言模型在社会科学中的应用。
+      </p>
+      <p>
+        此前，我在清华大学获得国际关系硕士和国际政治学士学位，本科以最高荣誉毕业，师从<a href="https://cc458.github.io/">陈冲</a>老师；也曾在北京大学担任庞珣老师的研究助理。
+      </p>
+    </div>
+
+    <ul class="contact">
+      <li><a class="btn" href={`mailto:${site.email}`}><Icon name="mail" /><span>{site.email}</span></a></li>
+      <li><a class="btn" href={site.cv}><Icon name="file" /><span>英文简历</span></a></li>
+    </ul>
+
+    <section class="list" aria-labelledby="zh-research">
+      <h2 class="section-title" id="zh-research">研究</h2>
+      <ol>
+        {papers.map((p) => (
+          <li>
+            <span class="label">{typeZh[p.data.type]}</span>
+            <a class="title" href={`/research/${p.id}/`} lang="en">{p.data.title}</a>
+            {p.data.titleZh && <span class="title-zh">{p.data.titleZh}</span>}
+          </li>
+        ))}
+      </ol>
+      <p class="note">论文详情、摘要和下载链接见英文页面。</p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  :global(html[lang="zh-Hans"] body) {
+    font-family: var(--font-sans), var(--font-zh-sans);
+  }
+  h1 {
+    font-family: var(--font-zh-serif);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .en {
+    font-family: var(--font-serif);
+    font-size: 0.42em;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--muted);
+    margin-left: 0.4em;
+    vertical-align: 0.35em;
+  }
+  .bio {
+    line-height: 1.9;
+    color: var(--ink-soft);
+  }
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+  }
+  .contact .btn {
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+  .list {
+    margin-top: 3.25rem;
+  }
+  .list ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .list li {
+    display: grid;
+    gap: 0.3rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  .list li:first-child {
+    border-top: 0;
+    padding-top: 0.25rem;
+  }
+  .title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .title:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 4px;
+  }
+  .title-zh {
+    font-family: var(--font-zh-serif);
+    color: var(--muted);
+  }
+  .note {
+    margin-top: 1.5rem;
+    font-size: var(--fs-small);
+    color: var(--muted);
+  }
+</style>
