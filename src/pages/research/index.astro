@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PaperItem from "../../components/PaperItem.astro";
+
+const all = (await getCollection("papers")).sort((a, b) => a.data.order - b.data.order);
+const sections = [
+  { id: "working-papers", title: "Working papers", type: "working" },
+  { id: "publications", title: "Publications", type: "published" },
+  { id: "book", title: "Book chapter", type: "book" },
+] as const;
+---
+<Base title="Research" description="Working papers and publications by Jingtian Hu on critical minerals, supply chains, armed conflict, and AI for social science.">
+  <div class="wrap narrow">
+    <header class="page-head">
+      <h1>Research</h1>
+      <p class="lede">{all.length} papers. Click “Abstract” under a paper to read it here.</p>
+    </header>
+
+    {sections.map((s) => {
+      const items = all.filter((p) => p.data.type === s.type);
+      return items.length > 0 && (
+        <section class="block" id={s.id} aria-labelledby={`${s.id}-h`} data-reveal>
+          <h2 class="section-title" id={`${s.id}-h`}>{s.title}</h2>
+          <div class="papers">
+            {items.map((p) => <PaperItem paper={p} />)}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+</Base>
+
+
+<style>
+  .block + .block {
+    margin-top: 2.5rem;
+  }
+</style>

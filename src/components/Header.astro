@@ -1,0 +1,138 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../data/site";
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const nav = [
+  { href: "/", label: "About" },
+  { href: "/research", label: "Research" },
+  { href: "/teaching", label: "Teaching" },
+  { href: "/cv", label: "CV" },
+  { href: "/zh", label: "中文", lang: "zh-Hans" },
+];
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/">{site.name}</a>
+    <nav aria-label="Main">
+      <ul>
+        {nav.map((n) => (
+          <li>
+            <a href={n.href} lang={n.lang} aria-current={isActive(n.href) ? "page" : undefined}>{n.label}</a>
+          </li>
+        ))}
+      </ul>
+      <button class="theme-toggle" type="button" aria-label="Switch between light and dark mode" title="Light / dark">
+        <Icon name="moon" />
+        <Icon name="sun" />
+      </button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper), transparent 15%);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--ease), background-color var(--ease);
+  }
+  :global(html.scrolled) .site-header {
+    border-bottom-color: var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4rem;
+  }
+  .brand {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  ul {
+    display: flex;
+    gap: clamp(0.6rem, 0.2rem + 1.4vw, 1.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--muted);
+    padding-block: 0.25rem;
+    border-bottom: 1.5px solid transparent;
+  }
+  nav a:hover {
+    color: var(--ink);
+  }
+  nav a[aria-current="page"] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    margin-left: 0.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color var(--ease), border-color var(--ease), transform 0.3s ease;
+  }
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .theme-toggle:active {
+    transform: rotate(-20deg);
+  }
+  .theme-toggle :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    grid-area: 1 / 1;
+  }
+  .theme-toggle :global(.icon-sun) {
+    display: none;
+  }
+  :global([data-theme="dark"]) .theme-toggle :global(.icon-sun) {
+    display: block;
+  }
+  :global([data-theme="dark"]) .theme-toggle :global(.icon-moon) {
+    display: none;
+  }
+  @media (max-width: 640px) {
+    .bar {
+      flex-wrap: wrap;
+      padding-block: 0.6rem;
+      row-gap: 0.25rem;
+    }
+    .brand {
+      font-size: 1.15rem;
+    }
+    nav {
+      width: 100%;
+      justify-content: space-between;
+    }
+    nav a {
+      font-size: 0.9rem;
+    }
+  }
+</style>

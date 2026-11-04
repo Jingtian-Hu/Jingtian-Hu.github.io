@@ -1,0 +1,155 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Authors from "../../components/Authors.astro";
+
+export async function getStaticPaths() {
+  const papers = await getCollection("papers");
+  return papers.map((paper) => ({ params: { slug: paper.id }, props: { paper } }));
+}
+interface Props { paper: CollectionEntry<"papers">; }
+const { paper } = Astro.props;
+const { data } = paper;
+const { Content } = await render(paper);
+const hasAbstract = Boolean(paper.body?.trim());
+const typeLabel = { working: "Working paper", published: "Publication", book: "Book chapter" }[data.type];
+---
+<Base title={data.title} description={data.summary ?? data.title}>
+  <article class="wrap narrow">
+    <a class="more back" href="/research/">← All research</a>
+    <header class:list={["head", { "has-thumb": data.thumbnail }]}>
+      <div class="head-text">
+      <p class="kicker">{typeLabel}, {data.year}</p>
+      <h1>{data.title}</h1>
+      {data.titleZh && <p class="zh" lang="zh-Hans">{data.titleZh}</p>}
+      {(data.authorNote || data.authors.length > 0) && <p class="line"><Authors data={data} /></p>}
+      {data.venue && <p class="line"><i>{data.venue}</i>{data.venueNote && <span>, {data.venueNote}</span>}</p>}
+      {data.status && <p class="line"><i>{data.status}</i></p>}
+      {(data.links.length > 0 || data.bibtex) && (
+        <p class="paper-links">
+          {data.links.map((l) => (
+            <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noopener" : undefined}>{l.label}</a>
+          ))}
+          {data.bibtex && (
+            <button class="link-btn" type="button" data-copy={data.bibtex.trim()}><span>BibTeX</span></button>
+          )}
+        </p>
+      )}
+      </div>
+      {data.thumbnail && (
+        <a class="thumb" href={data.links.find((l) => l.label === "PDF")?.href ?? "#"} aria-label="Open the PDF">
+          <img src={data.thumbnail} width="360" height="465" alt={`First page of “${data.title}”`} />
+        </a>
+      )}
+    </header>
+
+    {data.summary && <p class="summary">{data.summary}</p>}
+
+    {hasAbstract ? (
+      <section class="abstract">
+        <h2 class="section-title">Abstract</h2>
+        <div class="prose"><Content /></div>
+      </section>
+    ) : null}
+
+    {data.bibtex && (
+      <section class="cite">
+        <h2 class="section-title">Cite</h2>
+        <pre><code>{data.bibtex.trim()}</code></pre>
+      </section>
+    )}
+
+  </article>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+  .head.has-thumb {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 11rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .thumb {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 16px 32px -14px rgb(60 40 20 / 0.35);
+    transition: transform var(--ease), box-shadow var(--ease);
+  }
+  .thumb:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 22px 40px -14px rgb(60 40 20 / 0.45);
+  }
+  .thumb img {
+    width: 100%;
+    height: auto;
+  }
+  :global([data-theme="dark"]) .thumb {
+    opacity: 0.88;
+  }
+  @media (max-width: 640px) {
+    .head.has-thumb {
+      grid-template-columns: 1fr;
+    }
+    .thumb {
+      width: 8rem;
+    }
+  }
+  .head h1 {
+    font-size: clamp(1.9rem, 1.4rem + 2vw, 2.7rem);
+    line-height: 1.2;
+    margin: 0.6rem 0 0.75rem;
+  }
+  .zh {
+    font-family: var(--font-zh-serif);
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin: -0.25rem 0 0.75rem;
+  }
+  .line {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+  }
+  .paper-links {
+    margin-top: 1rem;
+  }
+  .summary {
+    margin: 2.25rem 0 0;
+    padding: 1.1rem 1.25rem;
+    background: var(--card);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .abstract,
+  .cite {
+    margin-top: 2.75rem;
+  }
+  .abstract .prose {
+    color: var(--ink-soft);
+  }
+  pre {
+    margin: 0;
+    padding: 1rem 1.15rem;
+    overflow-x: auto;
+    background: var(--paper-sunk);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .kicker {
+    color: var(--muted);
+    font-size: var(--fs-small);
+    margin: 0;
+  }
+</style>
