@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import PaperItem from "../../components/PaperItem.astro";
-import { TOPICS } from "../../content.config";
 
 const all = (await getCollection("papers")).sort((a, b) => a.data.order - b.data.order);
 const sections = [
@@ -18,14 +17,6 @@ const sections = [
       <p class="lede">{all.length} papers. Click “Abstract” under a paper to read it here.</p>
     </header>
 
-    <p class="filters" role="group" aria-label="Filter by topic">
-      <span class="filters-label">Show:</span>
-      <button class="link-btn" type="button" data-topic="all" aria-pressed="true">All</button>
-      {Object.entries(TOPICS).map(([key, label]) => (
-        <button class="link-btn" type="button" data-topic={key} aria-pressed="false">{label}</button>
-      ))}
-    </p>
-
     {sections.map((s) => {
       const items = all.filter((p) => p.data.type === s.type);
       return items.length > 0 && (
@@ -40,51 +31,8 @@ const sections = [
   </div>
 </Base>
 
-<script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>("[data-topic]");
-  const papers = document.querySelectorAll<HTMLElement>(".paper");
-
-  function apply(topic: string) {
-    buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.topic === topic)));
-    papers.forEach((p) => {
-      const match = topic === "all" || (p.dataset.topics ?? "").split(" ").includes(topic);
-      p.classList.toggle("is-dim", !match);
-    });
-    const url = new URL(window.location.href);
-    if (topic === "all") url.searchParams.delete("topic");
-    else url.searchParams.set("topic", topic);
-    history.replaceState(null, "", url);
-  }
-
-  buttons.forEach((b) => b.addEventListener("click", () => apply(b.dataset.topic ?? "all")));
-  const initial = new URLSearchParams(window.location.search).get("topic");
-  if (initial && [...buttons].some((b) => b.dataset.topic === initial)) apply(initial);
-</script>
 
 <style>
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    column-gap: 0.35rem;
-    row-gap: 0.25rem;
-    margin: 0 0 2.5rem;
-    font-size: var(--fs-small);
-    color: var(--muted);
-  }
-  .filters-label {
-    margin-right: 0.25rem;
-  }
-  .filters .link-btn + .link-btn::before {
-    content: "·";
-    margin-right: 0.35rem;
-    color: var(--line-strong);
-  }
-  .filters .link-btn[aria-pressed="true"] {
-    color: var(--ink);
-    text-decoration-color: var(--accent);
-    font-weight: 600;
-  }
   .block + .block {
     margin-top: 2.5rem;
   }

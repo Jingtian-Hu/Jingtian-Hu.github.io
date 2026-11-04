@@ -19,23 +19,27 @@ media.addEventListener("change", (e) => {
   if (!stored) setTheme(e.matches ? "dark" : "light", false);
 });
 
-// Reveal sections as they scroll into view.
-const revealables = document.querySelectorAll<HTMLElement>("[data-reveal]");
+// Reveal sections as they scroll into view. Only sections that start below the
+// first screen are hidden, so the page is complete the moment it loads.
+const revealables = [...document.querySelectorAll<HTMLElement>("[data-reveal]")].filter(
+  (el) => el.getBoundingClientRect().top > window.innerHeight,
+);
 if ("IntersectionObserver" in window && revealables.length) {
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) {
-          (e.target as HTMLElement).classList.add("is-visible");
+          (e.target as HTMLElement).classList.remove("reveal-pending");
           io.unobserve(e.target);
         }
       });
     },
     { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
   );
-  revealables.forEach((el) => io.observe(el));
-} else {
-  revealables.forEach((el) => el.classList.add("is-visible"));
+  revealables.forEach((el) => {
+    el.classList.add("reveal-pending");
+    io.observe(el);
+  });
 }
 
 // Hairline under the header once the page scrolls.

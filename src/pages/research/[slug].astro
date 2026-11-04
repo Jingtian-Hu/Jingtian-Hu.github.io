@@ -2,7 +2,6 @@
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Authors from "../../components/Authors.astro";
-import { TOPICS } from "../../content.config";
 
 export async function getStaticPaths() {
   const papers = await getCollection("papers");
@@ -60,11 +59,6 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
       </section>
     )}
 
-    <p class="topics">
-      Topics: {data.topics.map((t, i) => (
-        <Fragment><a href={`/research/?topic=${t}`}>{TOPICS[t]}</a>{i < data.topics.length - 1 ? " · " : ""}</Fragment>
-      ))}
-    </p>
   </article>
 </Base>
 
@@ -157,16 +151,5 @@ const typeLabel = { working: "Working paper", published: "Publication", book: "B
     color: var(--muted);
     font-size: var(--fs-small);
     margin: 0;
-  }
-  .topics {
-    font-size: var(--fs-small);
-    color: var(--muted);
-    margin-top: 3rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--line);
-  }
-  .topics a {
-    color: var(--accent-deep);
-    text-decoration: none;
   }
 </style>

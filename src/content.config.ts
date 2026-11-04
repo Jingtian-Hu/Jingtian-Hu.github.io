@@ -19,7 +19,7 @@ const papers = defineCollection({
     type: z.enum(["working", "published", "book"]),
     order: z.number(), // smaller = higher within its section
     year: z.number(),
-    topics: z.array(z.enum(Object.keys(TOPICS) as [keyof typeof TOPICS, ...(keyof typeof TOPICS)[]])),
+    topics: z.array(z.enum(Object.keys(TOPICS) as [keyof typeof TOPICS, ...(keyof typeof TOPICS)[]])).default([]), // for your own bookkeeping; not shown
     venue: z.string().optional(), // journal / book (set in italics)
     venueNote: z.string().optional(), // e.g. "No. 2, 2022, pp. 86–123 · In Chinese"
     status: z.string().optional(), // e.g. "Presented at ISA 2025" (shown in italics)

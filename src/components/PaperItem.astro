@@ -14,7 +14,7 @@ const hasPage = hasAbstract || data.links.length > 0;
 const { Content } = await render(paper);
 const panelId = `abs-${paper.id}`;
 ---
-<article class:list={["paper", { "has-thumb": data.thumbnail }]} data-topics={data.topics.join(" ")}>
+<article class:list={["paper", { "has-thumb": data.thumbnail }]}>
   {data.thumbnail && (
     <a class="thumb" href={`/research/${paper.id}/`} tabindex="-1" aria-hidden="true">
       <img src={data.thumbnail} width="360" height="465" alt="" loading="lazy" />
@@ -58,9 +58,6 @@ const panelId = `abs-${paper.id}`;
   .paper:first-child {
     border-top: 0;
     padding-top: 0.25rem;
-  }
-  .paper.is-dim {
-    opacity: 0.28;
   }
   .paper.has-thumb {
     display: grid;
